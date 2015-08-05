@@ -3,9 +3,10 @@
 <link rel="stylesheet" href="style.css" />
 
 	<script src="http://code.jquery.com/jquery-latest.min.js " ></script>
-	<title>mapstarter</title>
+	<title>LA Food Bank Food Resources Map</title>
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src="http://cdn.jsdelivr.net/leaflet.esri/1.0.0/esri-leaflet.js"></script>
 	<script src="cities.js"></script>	
 	<script type="text/javascript">
 
@@ -13,28 +14,34 @@
 
 		$(document).ready(function(){
 
-			map = L.map('map').setView([0,0],2);
-
-			//find many basemap options @ http://leaflet-extras.github.io/leaflet-providers/preview/				
-
-			//thunderforest landscape			
-			L.tileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
-				attribution: '&copy; <a href="http://www.opencyclemap.org">OpenCycleMap</a>, &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
-			}).addTo(map);
-			
-
-			//openmapSurfer greyscale
-			/*
-			L.tileLayer('http://openmapsurfer.uni-hd.de/tiles/roadsg/x={x}&y={y}&z={z}', {
-				attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
-			}).addTo(map);
-			*/
+			map = L.map('map').setView([34,-118],9);
+            
+            //Basemap and Labels
+            
+            L.esri.basemapLayer('Gray').addTo(map);
+            L.esri.basemapLayer('GrayLabels').addTo(map);
+            
+            //County Outline
+           
+        var county = L.esri.featureLayer('http://services.arcgis.com/obpUicnfIYG1DOsR/arcgis/rest/services/lacounty/FeatureServer/0', {
+        simplifyFactor: 0.35,
+        style: function(feature) {
+          return {
+            color: '#555',
+            fill: null,
+            weight: 3,
+            opacity: 0.25,
+            } 
+            }
+        }).addTo(map);
+            
+            
 
 			//ADD MARKER
-			var marker = L.marker([0,0]);
+			/*var marker = L.marker([0,0]);
 			marker.bindPopup('Hello World!');
 			marker.addTo(map);
-
+*/
 			//ADD LINE
 			/*
 			var polyline = L.polyline([
@@ -60,17 +67,17 @@
 
 			//ADD GEOJSON
 			/*
-			var geoJson = L.geoJson(cities,{
+			var geoJson = L.geoJson(County,{
 				onEachFeature: function(feature,layer){
 					layer.bindPopup(feature.properties.NAMELSAD);
 				}
 			});
 			geoJson.addTo(map);
-			*/
+			
 
 		}); 
 
-
+        */
 	</script>
 	
 </head>
