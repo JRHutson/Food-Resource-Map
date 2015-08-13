@@ -10,6 +10,36 @@
 	<script src="cities.js"></script>	
 	<script type="text/javascript">
 
+    
+    var today = new Date();
+    var dd = today.getDate();
+
+        if(dd<8) {
+        ww='1'
+        } 
+
+        else if(dd<15) {
+            ww='2'
+        } 
+       
+        else if(dd<22) {
+            ww='3'
+        } 
+
+        else if(dd<29) {
+            ww='4'
+        } 
+
+        else {
+            ww='5'
+        } 
+
+        week = ww;
+        
+    var day = today.getDay();
+        current = week + day;
+
+    
 		var map;
 
 		$(document).ready(function(){
