@@ -38,6 +38,35 @@
         
     var day = today.getDay();
         current = week + day;
+        
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate()+1);
+    var td = tomorrow.getDate();
+
+        if(td<8) {
+        tw='1'
+        } 
+
+        else if(td<15) {
+            tw='2'
+        } 
+       
+        else if(td<22) {
+            tw='3'
+        } 
+
+        else if(td<29) {
+            tw='4'
+        } 
+
+        else {
+            tw='5'
+        } 
+
+        tomorrowweek = tw;
+        
+    var nextday = tomorrow.getDay();
+        next = tomorrowweek + nextday;
 
     
 		var map;
