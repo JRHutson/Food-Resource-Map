@@ -18,12 +18,15 @@
         function daysInMonth(iMonth, iYear) {
             return 32 - new Date(iYear, iMonth, 32).getDate();
         }
-        
+
         var days = daysInMonth(mm, yy)
-        
-        if ((days - dd) < 8) {last = 1}
-        else {last = 0}
-        
+
+        if ((days - dd) < 8) {
+            last = 1
+        } else {
+            last = 0
+        }
+
         if (dd < 8) {
             ww = '1'
         } else if (dd < 15) {
