@@ -70,67 +70,82 @@
 
         $(document).ready(function () {
 
-            map = L.map('map').setView([34, -118], 9);
+                    map = L.map('map').setView([34, -118], 9);
 
-            //Basemap and Labels
+                    //Basemap and Labels
 
-            L.esri.basemapLayer('Gray').addTo(map);
-            L.esri.basemapLayer('GrayLabels').addTo(map);
+                    L.esri.basemapLayer('Gray').addTo(map);
+                    L.esri.basemapLayer('GrayLabels').addTo(map);
 
-            //Food Banks
-            var foodbanks = L.esri.featureLayer({
-                url: 'http://services6.arcgis.com/khUjDuArRH761yYG/arcgis/rest/services/FoodPantriesMaster/FeatureServer/0'
-            }).addTo(map);
-            foodbanks.bindPopup(function (feature) {
-                return L.Util.template('<p>{AgencyName}<br>{AgencyAddr}<br>{AgencyCity}, {AgencyStat} {AgencyZip}<br>{AgencyPhon}<br>Distribution Schedule: <br>{Schedule}</p>', feature.properties);
-            });
-            //County Outline
+                    var icons = {
+                        north: L.icon({
+                            iconUrl: 'http://esri.github.io/esri-leaflet/img/bus-stop-north.png',
+                            iconRetinaUrl: 'http://esri.github.io/esri-leaflet/img/bus-stop-north@2x.png',
+                            iconSize: [27, 31],
+                            iconAnchor: [13.5, 17.5],
+                            popupAnchor: [0, -11],
+                        }),
+                        south: L.icon({
+                                iconUrl: 'http://esri.github.io/esri-leaflet/img/bus-stop-south.png',
+                                iconRetinaUrl: 'http://esri.github.io/esri-leaflet/img/bus-stop-south@2x.png',
+                                iconSize: [27, 31],
+                                iconAnchor: [13.5, 13.5],
+                                popupAnchor: [0, -11],
+                            };
 
-            var county = L.esri.featureLayer({
-                url: 'http://services6.arcgis.com/khUjDuArRH761yYG/arcgis/rest/services/CountyOutline/FeatureServer/0',
-                simplifyFactor: 0.35,
-                style: function (feature) {
-                    return {
-                        color: '#0000FF',
-                        fill: null,
-                        weight: 3,
-                        opacity: 0.25
-                    }
-                }
-            }).addTo(map);
+                            //Food Banks
+                            var foodbanks = L.esri.featureLayer({
+                                url: 'http://services6.arcgis.com/khUjDuArRH761yYG/arcgis/rest/services/FoodPantriesMaster/FeatureServer/0'
+                            }).addTo(map); foodbanks.bindPopup(function (feature) {
+                                return L.Util.template('<p>{AgencyName}<br>{AgencyAddr}<br>{AgencyCity}, {AgencyStat} {AgencyZip}<br>{AgencyPhon}<br>Distribution Schedule: <br>{Schedule}</p>', feature.properties);
+                            });
+                            //County Outline
+
+                            var county = L.esri.featureLayer({
+                                url: 'http://services6.arcgis.com/khUjDuArRH761yYG/arcgis/rest/services/CountyOutline/FeatureServer/0',
+                                simplifyFactor: 0.35,
+                                style: function (feature) {
+                                    return {
+                                        color: '#0000FF',
+                                        fill: null,
+                                        weight: 3,
+                                        opacity: 0.25
+                                    }
+                                }
+                            }).addTo(map);
 
 
 
-            //ADD MARKER
-            /*var marker = L.marker([0,0]);
+                            //ADD MARKER
+                            /*var marker = L.marker([0,0]);
 			marker.bindPopup('Hello World!');
 			marker.addTo(map);
 */
-            //ADD LINE
-            /*
-            var polyline = L.polyline([
-            	[0,90],
-            	[90,0],
-            	[0,-90],
-            	[-90,0],
-            	[0,90]
-            	]);
-            polyline.addTo(map);
-            */
+                            //ADD LINE
+                            /*
+                            var polyline = L.polyline([
+                            	[0,90],
+                            	[90,0],
+                            	[0,-90],
+                            	[-90,0],
+                            	[0,90]
+                            	]);
+                            polyline.addTo(map);
+                            */
 
-            //ADD POLYGON
-            /*
-            var polygon = L.polygon([
-            	[45,45],
-            	[45,-45],
-            	[-45,-45],
-            	[-45,45]
-            	]);
-            polygon.addTo(map);
-            */
+                            //ADD POLYGON
+                            /*
+                            var polygon = L.polygon([
+                            	[45,45],
+                            	[45,-45],
+                            	[-45,-45],
+                            	[-45,45]
+                            	]);
+                            polygon.addTo(map);
+                            */
 
-            //ADD GEOJSON
-            /*
+                            //ADD GEOJSON
+                            /*
 			var geoJson = L.geoJson(County,{
 				onEachFeature: function(feature,layer){
 					layer.bindPopup(feature.properties.NAMELSAD);
@@ -139,9 +154,9 @@
 			geoJson.addTo(map);
 			
 */
-        });
+                        });
 
-        //Comment added for GitHub app test
+                    //Comment added for GitHub app test
     </script>
 
 </head>
