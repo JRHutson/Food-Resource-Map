@@ -79,7 +79,9 @@
 
             //Food Banks
             var foodbanks = L.esri.featureLayer({url: 'http://services6.arcgis.com/khUjDuArRH761yYG/arcgis/rest/services/FoodPantriesMaster/FeatureServer/0'}).addTo(map);
-            
+            foodbanks.bindPopup(function (feature) {
+    return L.Util.template('<p>{AgencyName}<br>{AgencyAddr}<br>{AgencyCity}, {AgencyStat} {AgencyZip}<br>{AgencyPhon}<br>Distribution Schedule: <br>{Schedule}</p>', feature.properties);
+  });
             //County Outline
 
             var county = L.esri.featureLayer({
