@@ -78,14 +78,14 @@
 
             //Defining Point Icons
 
-            var foodicon = L.icon({
+            var True = L.icon({
                 iconUrl: 'https://github.com/JRHutson/Food-Resource-Map/blob/master/img/SmallLogoColor.png?raw=true',
                 iconSize: [24, 37],
                 iconAnchor: [13.5, 17.5],
                 popupAnchor: [0, -11],
             });
 
-            var nofoodicon = L.icon({
+            var False = L.icon({
                 iconUrl: 'https://github.com/JRHutson/Food-Resource-Map/blob/master/img/SmallLogoBlackAndWhite.png?raw=true',
                 iconSize: [24, 37],
                 iconAnchor: [13.5, 13.5],
@@ -95,17 +95,17 @@
             //Food Banks
             var foodbanks = L.esri.featureLayer({
                 url: 'http://services6.arcgis.com/khUjDuArRH761yYG/arcgis/rest/services/FoodPantriesMaster/FeatureServer/0',
-            if (current == "True" || next == "True") is true {
                 pointToLayer: function (geojson, latlng) {
-                    return L.marker(latlng, {
-                        icon: foodicon});
-                }},
-            else pointToLayer: function (geojson, latlng) {
-                    return L.marker(latlng, {
-                        icon: nofoodicon});
-                },
+                    if (geojson.properties.current == True || geojson.properties.next == True)
+                        return L.marker(latlng, {
+                        icon: True})
+                    else 
+                        return L.marker(latlng, {
+                        icon: False
+                    });
                 
-            }).addTo(map);
+            }}).addTo(map);
+
 
             //Popup Configuration
 
