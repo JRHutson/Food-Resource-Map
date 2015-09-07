@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <script src="http://cdn.jsdelivr.net/leaflet.esri/1.0.0/esri-leaflet.js"></script>
-    <script src="cities.js"></script>
     <script type="text/javascript">
         var today = new Date();
         var dd = today.getDate();
@@ -77,28 +76,42 @@
                     L.esri.basemapLayer('Gray').addTo(map);
                     L.esri.basemapLayer('GrayLabels').addTo(map);
 
-                    var icons = {
-                        north: L.icon({
-                            iconUrl: 'http://esri.github.io/esri-leaflet/img/bus-stop-north.png',
-                            iconRetinaUrl: 'http://esri.github.io/esri-leaflet/img/bus-stop-north@2x.png',
-                            iconSize: [27, 31],
+                    //Defining Point Icons
+            
+                    var foodicon =  L.icon({
+                            iconUrl: 'https://github.com/JRHutson/Food-Resource-Map/blob/master/img/SmallLogoColor.png?raw=true',
+                            iconSize: [24, 37],
                             iconAnchor: [13.5, 17.5],
                             popupAnchor: [0, -11],
-                        }),
-                        south: L.icon({
-                                iconUrl: 'http://esri.github.io/esri-leaflet/img/bus-stop-south.png',
-                                iconRetinaUrl: 'http://esri.github.io/esri-leaflet/img/bus-stop-south@2x.png',
-                                iconSize: [27, 31],
+                        });
+            
+                    var nofoodicon = L.icon({
+                                iconUrl: 'https://github.com/JRHutson/Food-Resource-Map/blob/master/img/SmallLogoBlackAndWhite.png?raw=true',
+                                iconSize: [24, 37],
                                 iconAnchor: [13.5, 13.5],
-                                popupAnchor: [0, -11],
-                            };
+                                popupAnchor: [0, -11],}
+                        );
 
-                            //Food Banks
-                            var foodbanks = L.esri.featureLayer({
-                                url: 'http://services6.arcgis.com/khUjDuArRH761yYG/arcgis/rest/services/FoodPantriesMaster/FeatureServer/0'
-                            }).addTo(map); foodbanks.bindPopup(function (feature) {
+                    //Food Banks
+                    var foodbanks = L.esri.featureLayer({
+                                url: 'http://services6.arcgis.com/khUjDuArRH761yYG/arcgis/rest/services/FoodPantriesMaster/FeatureServer/0',
+                        pointToLayer: function (geojson, latlng)  {
+                            if (true == feature.properties.current or true == feature.properties.next)
+                    return L.marker(latlng, {
+                    icon: foodicon
+      })
+                    else return L.marker(latlng, {
+                    icon: nofoodicon
+      });
+    },
+                            }).addTo(map);
+            
+                    //Popup Configuration
+            
+                    foodbanks.bindPopup(function (feature) {
                                 return L.Util.template('<p>{AgencyName}<br>{AgencyAddr}<br>{AgencyCity}, {AgencyStat} {AgencyZip}<br>{AgencyPhon}<br>Distribution Schedule: <br>{Schedule}</p>', feature.properties);
                             });
+            
                             //County Outline
 
                             var county = L.esri.featureLayer({
