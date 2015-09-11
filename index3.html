@@ -93,19 +93,19 @@
             });
 
             //Food Banks
+            var foodbankproxy = L.esri.featureLayer({
+                url: 'http://services6.arcgis.com/khUjDuArRH761yYG/arcgis/rest/services/FoodPantriesMaster/FeatureServer/0',});
+            
+            var firstdayvariable = foodbankproxy[current]
+            var nextdayvariable = foodbankproxy[next]
+            
             var foodbanks = L.esri.featureLayer({
                 url: 'http://services6.arcgis.com/khUjDuArRH761yYG/arcgis/rest/services/FoodPantriesMaster/FeatureServer/0',
-            if (current == "True" || next == "True") is true {
-                pointToLayer: function (geojson, latlng) {
+                
+            pointToLayer: function (geojson, latlng) { if (firstdayvariable == "True" || nextdayvariable == "True") 
                     return L.marker(latlng, {
                         icon: foodicon});
-                }},
-            else pointToLayer: function (geojson, latlng) {
-                    return L.marker(latlng, {
-                        icon: nofoodicon});
-                },
-                
-            }).addTo(map);
+                }}).addTo(map);
 
             //Popup Configuration
 
