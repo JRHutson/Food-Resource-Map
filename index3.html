@@ -9,6 +9,7 @@
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <script src="http://cdn.jsdelivr.net/leaflet.esri/1.0.0/esri-leaflet.js"></script>
     <script type="text/javascript">
+        var geojson;
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth();
@@ -64,7 +65,7 @@
         var nextday = tomorrow.getDay();
         next = "F" + tomorrowweek + nextday;
 
-
+       
         var map;
 
         $(document).ready(function () {
@@ -93,6 +94,8 @@
             });
 
             //Food Banks
+            
+            
             var foodbankproxy = L.esri.featureLayer({
                 url: 'http://services6.arcgis.com/khUjDuArRH761yYG/arcgis/rest/services/FoodPantriesMaster/FeatureServer/0',});
             
@@ -101,12 +104,13 @@
             
             var foodbanks = L.esri.featureLayer({
                 url: 'http://services6.arcgis.com/khUjDuArRH761yYG/arcgis/rest/services/FoodPantriesMaster/FeatureServer/0',
-                
+               
             pointToLayer: function (geojson, latlng) { if (firstdayvariable == "True" || nextdayvariable == "True") 
                     return L.marker(latlng, {
                         icon: foodicon});
                 }}).addTo(map);
-
+            
+ 
             //Popup Configuration
 
             foodbanks.bindPopup(function (feature) {
