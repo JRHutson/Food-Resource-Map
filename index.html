@@ -43,6 +43,8 @@
  
         var day = today.getDay();
         current = "F" + week + day;
+        
+        var lastday = "L" + day;
  
         var tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
@@ -104,6 +106,11 @@
                 if (geojson.properties[current] == "TRUE" || geojson.properties[next] == "TRUE"){
                     return L.marker(latlng, {
                         icon: foodicon});
+                }
+                else if (last == 1 && geojson.properties[lastday] == "TRUE"){
+                    return L.marker(latlng, {
+                            icon: foodicon
+                        });
                 }
                 else {
                     return L.marker(latlng, {
