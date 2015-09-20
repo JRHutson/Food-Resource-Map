@@ -133,6 +133,7 @@
 
             var foodbanks = L.esri.clusteredFeatureLayer({
                 url: 'http://services6.arcgis.com/khUjDuArRH761yYG/arcgis/rest/services/FoodPantriesMaster/FeatureServer/0',
+                disableClusteringAtZoom: 14,
                 pointToLayer: function (geojson, latlng) {
 
 
