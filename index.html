@@ -1,32 +1,33 @@
 <html>
- 
+
 <head>
     <link rel="stylesheet" href="style.css" />
- 
+
     <script src="http://code.jquery.com/jquery-latest.min.js "></script>
     <title>LA Food Bank Food Resources Map</title>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <script src="http://cdn.jsdelivr.net/leaflet.esri/1.0.0/esri-leaflet.js"></script>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/leaflet.esri.geocoder/1.0.2/esri-leaflet-geocoder.css">
+    <script src="http://cdn.jsdelivr.net/leaflet.esri.geocoder/1.0.2/esri-leaflet-geocoder.js"></script>
     <script type="text/javascript">
-    
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth();
         var yy = today.getYear();
- 
+
         function daysInMonth(iMonth, iYear) {
             return 32 - new Date(iYear, iMonth, 32).getDate();
         }
- 
+
         var days = daysInMonth(mm, yy)
- 
+
         if ((days - dd) < 8) {
             last = 1
         } else {
             last = 0
         }
- 
+
         if (dd < 8) {
             ww = '1'
         } else if (dd < 15) {
@@ -38,28 +39,28 @@
         } else {
             ww = '5'
         }
- 
+
         week = ww;
- 
+
         var day = today.getDay();
         current = "F" + week + day;
-        
+
         var lastday = "L" + day;
- 
+
         var tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
         var td = tomorrow.getDate();
         var tm = tomorrow.getMonth();
         var ty = tomorrow.getYear();
-        
+
         var tdays = daysInMonth(tm, ty)
- 
+
         if ((tdays - td) < 8) {
             tlast = 1
         } else {
             tlast = 0
         }
-        
+
         if (td < 8) {
             tw = '1'
         } else if (td < 15) {
@@ -71,82 +72,93 @@
         } else {
             tw = '5'
         }
- 
+
         tomorrowweek = tw;
- 
+
         var nextday = tomorrow.getDay();
         next = "F" + tomorrowweek + nextday;
-        
+
         nextlast = "L" + nextday;
- 
-       
+
+
         var map;
- 
+
         $(document).ready(function () {
- 
+
             map = L.map('map').setView([34, -118], 9);
- 
+
             //Basemap and Labels
- 
+
             L.esri.basemapLayer('Gray').addTo(map);
             L.esri.basemapLayer('GrayLabels').addTo(map);
 
- 
+
+            // Geocoder
+            var searchControl = L.esri.Geocoding.Controls.geosearch().addTo(map);
+
+            var results = L.layerGroup().addTo(map);
+
+            searchControl.on('results', function (data) {
+                results.clearLayers();
+                for (var i = data.results.length - 1; i >= 0; i--) {
+                    results.addLayer(L.marker(data.results[i].latlng));
+                }
+            });
             //Defining Point Icons
- 
+
             var foodicon = L.icon({
                 iconUrl: 'https://github.com/JRHutson/Food-Resource-Map/blob/master/img/SmallLogoColor.png?raw=true',
                 iconSize: [35, 35],
                 iconAnchor: [13.5, 17.5],
                 popupAnchor: [0, -11],
             });
- 
+
             var nofoodicon = L.icon({
                 iconUrl: 'https://github.com/JRHutson/Food-Resource-Map/blob/master/img/SmallLogoBlackAndWhite.png?raw=true',
                 iconSize: [35, 35],
                 iconAnchor: [13.5, 13.5],
                 popupAnchor: [0, -11],
             });
- 
+
 
             //Food Banks
-        
-           
+
+
             var foodbanks = L.esri.featureLayer({
                 url: 'http://services6.arcgis.com/khUjDuArRH761yYG/arcgis/rest/services/FoodPantriesMaster/FeatureServer/0',
-            pointToLayer: function (geojson, latlng) { 
-                
-                
-                if (geojson.properties[current] == "TRUE" || geojson.properties[next] == "TRUE"){
-                    return L.marker(latlng, {
-                        icon: foodicon});
-                }
-                else if (last == 1 && geojson.properties[lastday] == "TRUE"){
-                    return L.marker(latlng, {
+                pointToLayer: function (geojson, latlng) {
+
+
+                    if (geojson.properties[current] == "TRUE" || geojson.properties[next] == "TRUE") {
+                        return L.marker(latlng, {
                             icon: foodicon
                         });
-                }
-                else if (tlast == 1 && geojson.properties[nextlast] == "TRUE"){
-                    return L.marker(latlng, {
+                    } else if (last == 1 && geojson.properties[lastday] == "TRUE") {
+                        return L.marker(latlng, {
                             icon: foodicon
                         });
-                }
-                else {
-                    return L.marker(latlng, {
+                    } else if (tlast == 1 && geojson.properties[nextlast] == "TRUE") {
+                        return L.marker(latlng, {
+                            icon: foodicon
+                        });
+                    } else {
+                        return L.marker(latlng, {
                             icon: nofoodicon
                         });
-                    
-                }}}).addTo(map);
-           
- 
+
+                    }
+                }
+            }).addTo(map);
+
+
             //Popup Configuration
- 
+
             foodbanks.bindPopup(function (feature) {
                 return L.Util.template('<p>{AgencyName}<br>{AgencyAddr}<br>{AgencyCity}, {AgencyStat} {AgencyZip}<br>{AgencyPhon}                               <br>Distribution Schedule: <br>{Schedule}</p>', feature.properties);
             });
- 
+
             //County Outline
- 
+
             var county = L.esri.featureLayer({
                 url: 'http://services6.arcgis.com/khUjDuArRH761yYG/arcgis/rest/services/CountyOutline/FeatureServer/0',
                 simplifyFactor: 0.35,
@@ -159,9 +171,9 @@
                     }
                 }
             }).addTo(map);
- 
- 
- 
+
+
+
             //ADD MARKER
             /*var marker = L.marker([0,0]);
                         marker.bindPopup('Hello World!');
@@ -178,7 +190,7 @@
                 ]);
             polyline.addTo(map);
             */
- 
+
             //ADD POLYGON
             /*
             var polygon = L.polygon([
@@ -189,7 +201,7 @@
                 ]);
             polygon.addTo(map);
             */
- 
+
             //ADD GEOJSON
             /*
                         var geoJson = L.geoJson(County,{
@@ -201,14 +213,14 @@
                        
 */
         });
- 
+
         //Comment added for GitHub app test
     </script>
- 
+
 </head>
- 
+
 <body>
     <div id="map"></div>
 </body>
- 
+
 </html>
