@@ -10,6 +10,13 @@
     <script src="http://cdn.jsdelivr.net/leaflet.esri/1.0.0/esri-leaflet.js"></script>
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/leaflet.esri.geocoder/1.0.2/esri-leaflet-geocoder.css">
     <script src="http://cdn.jsdelivr.net/leaflet.esri.geocoder/1.0.2/esri-leaflet-geocoder.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/Leaflet/Leaflet.markercluster/v0.4.0/dist/MarkerCluster.Default.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/Leaflet/Leaflet.markercluster/v0.4.0/dist/MarkerCluster.css">
+    <script src="https://cdn.rawgit.com/Leaflet/Leaflet.markercluster/v0.4.0/dist/leaflet.markercluster.js"></script>
+
+<!-- Load Clustered Feature Layer from CDN -->
+<script src="https://cdn.jsdelivr.net/leaflet.esri.clustered-feature-layer/1.0.2/esri-leaflet-clustered-feature-layer.js"></script>
+
     <script type="text/javascript">
         var today = new Date();
         var dd = today.getDate();
@@ -124,7 +131,7 @@
             //Food Banks
 
 
-            var foodbanks = L.esri.featureLayer({
+            var foodbanks = L.esri.clusteredFeatureLayer({
                 url: 'http://services6.arcgis.com/khUjDuArRH761yYG/arcgis/rest/services/FoodPantriesMaster/FeatureServer/0',
                 pointToLayer: function (geojson, latlng) {
 
