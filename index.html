@@ -264,11 +264,23 @@
             }).addTo(map);
 
 
-            //Popup Configuration
 
-            foodbanks.bindPopup(function (feature) {
-                return L.Util.template('<p>{AgencyName}<br>{AgencyAddr}<br>{AgencyCity}, {AgencyStat} {AgencyZip}<br>{AgencyPhon}                               <br>Distribution Schedule: <br>{Schedule}</p>', feature.properties);
+            // Create an element to hold all your text and markup
+            var container = $('<div />');
+
+            // Delegate all event handling for the container itself and its contents to the container
+            container.on('click', '.smallPolygonLink', function () {
+                alert("test");
             });
+
+            // Insert whatever you want into the container, using whichever approach you prefer
+            container.html("This is a link: <a href='#' class='smallPolygonLink'>Click me</a>.");
+            container.append($('<span class="bold">').text(" :)"))
+
+            // Insert the container into the popup
+            foodbanks.bindPopup(container[0]);
+
+
 
             //County Outline
 
