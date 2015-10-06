@@ -267,7 +267,7 @@
             //Popup Configuration
 
             foodbanks.bindPopup(function (feature) {
-                return L.Util.template('<p>{AgencyName}<br>{AgencyAddr}<br>{AgencyCity}, {AgencyStat} {AgencyZip}<br>{AgencyPhon}                               <br>Distribution Schedule: <br>{Schedule}</p>', feature.properties);
+                return L.Util.template('<p>{AgencyName}<br>{AgencyAddr}<br>{AgencyCity}, {AgencyStat} {AgencyZip}<br><a href="tel:{AgencyPhon}">{AgencyPhon}</a><br>Distribution Schedule: <br>{Schedule}</p><a href="maps:daddr={FullAddre}&saddr=Current%20Location">On Mobile? Tap for directions</a>', feature.properties);
             });
 
             //County Outline
