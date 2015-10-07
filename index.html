@@ -267,7 +267,7 @@
             //Popup Configuration
 
             foodbanks.bindPopup(function (feature) {
-                return L.Util.template('<p>{AgencyName}<br>{AgencyAddr}<br>{AgencyCity}, {AgencyStat} {AgencyZip}<br><a href="tel:{AgencyPhon}">{AgencyPhon}</a><br>Distribution Schedule: <br>{Schedule}</p> Mobile Directions: </p> <a href="maps:daddr={FullAddre}&saddr=Current%20Location">Apple Maps</a> </p> <a href="http://maps.google.com/maps?daddr={FullAddre};ll=">Google Maps</a>', feature.properties);
+                return L.Util.template('<p>{AgencyName}<br>{AgencyAddr}<br>{AgencyCity}, {AgencyStat} {AgencyZip}<br><a href="tel:{AgencyPhon}">{AgencyPhon}</a><br>Distribution Schedule: <br>{Schedule}</p> Get Directions: </p> <a href="http://maps.apple.com/?daddr={FullAddre}&dirflg=d&t=h">Apple Maps</a> </p> <a href="http://maps.google.com/maps?saddr=My+Location&daddr={FullAddre};ll=">Google Maps</a>', feature.properties);
             });
 
             //County Outline
