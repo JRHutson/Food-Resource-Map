@@ -212,7 +212,7 @@
                 popupAnchor: [0, -50],
             });
 
-
+            //Marker symbol was adapted from a public domain icon by the Noun Project. (https://thenounproject.com/search/?q=Food+Bank&i=744)
             //Food Banks
 
 
@@ -306,6 +306,8 @@
                 }
             }));
 
+            // Centering Map on Pop-up Open
+            
             map.on('popupopen', function (e) {
                 var px = map.project(e.popup._latlng); // find the pixel location on the map where the popup anchor is
                 px.y -= e.popup._container.clientHeight / 2 // find the height of the popup container, divide by 2, subtract from the Y axis of marker location
@@ -313,7 +315,13 @@
                     animate: true
                 }); // pan to new center
             });
+            
+            //Attribution of icon
+            
+            map.attributionControl.addAttribution('Icon by the Noun Project')
 
+            //Marker symbol was adapted from a public domain icon by the Noun Project. (https://thenounproject.com/search/?q=Food+Bank&i=744)
+            
         });
 
 
