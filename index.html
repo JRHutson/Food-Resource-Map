@@ -179,7 +179,7 @@
 
 
             // Geocoder
-            var searchControl = L.esri.Geocoding.Controls.geosearch().addTo(map);
+            var searchControl = L.esri.Geocoding.Controls.geosearch({position:'topright', expanded:'True'}).addTo(map);
 
             var results = L.layerGroup().addTo(map);
 
@@ -294,7 +294,9 @@
             L.control.locate({
                 position: 'topleft'
             });
-
+            
+            // Defining Zoom Level When User Locates Self
+            
             map.addControl(L.control.locate({
                 locateOptions: {
                     maxZoom: 13
