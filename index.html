@@ -13,6 +13,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/Leaflet/Leaflet.markercluster/v0.4.0/dist/MarkerCluster.Default.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/Leaflet/Leaflet.markercluster/v0.4.0/dist/MarkerCluster.css">
     <script src="https://cdn.rawgit.com/Leaflet/Leaflet.markercluster/v0.4.0/dist/leaflet.markercluster.js"></script>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://rawgithub.com/domoritz/leaflet-locatecontrol/gh-pages/dist/L.Control.Locate.min.css" />
+    <script src="http://rawgithub.com/domoritz/leaflet-locatecontrol/gh-pages/dist/L.Control.Locate.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <!-- Load Clustered Feature Layer from CDN -->
@@ -176,7 +179,7 @@
 
 
             // Geocoder
-            var searchControl = L.esri.Geocoding.Controls.geosearch().addTo(map);
+            var searchControl = L.esri.Geocoding.Controls.geosearch({position:'topright', expanded:'True'}).addTo(map);
 
             var results = L.layerGroup().addTo(map);
 
@@ -285,47 +288,23 @@
                 }
             }).addTo(map);
 
+            //Locate Me Control
 
 
-            //ADD MARKER
-            /*var marker = L.marker([0,0]);
-                        marker.bindPopup('Hello World!');
-                        marker.addTo(map);
-*/
-            //ADD LINE
-            /*
-            var polyline = L.polyline([
-                [0,90],
-                [90,0],
-                [0,-90],
-                [-90,0],
-                [0,90]
-                ]);
-            polyline.addTo(map);
-            */
+            L.control.locate({
+                position: 'topleft'
+            });
+            
+            // Defining Zoom Level When User Locates Self
+            
+            map.addControl(L.control.locate({
+                locateOptions: {
+                    maxZoom: 13
+                }
+            }));
 
-            //ADD POLYGON
-            /*
-            var polygon = L.polygon([
-                [45,45],
-                [45,-45],
-                [-45,-45],
-                [-45,45]
-                ]);
-            polygon.addTo(map);
-            */
-
-            //ADD GEOJSON
-            /*
-                        var geoJson = L.geoJson(County,{
-                                onEachFeature: function(feature,layer){
-                                        layer.bindPopup(feature.properties.NAMELSAD);
-                                }
-                        });
-                        geoJson.addTo(map);
-                       
-*/
         });
+
 
         //Comment added for GitHub app test
     </script>
