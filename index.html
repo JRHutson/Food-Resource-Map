@@ -179,7 +179,7 @@
 
 
             // Geocoder
-            var searchControl = L.esri.Geocoding.Controls.geosearch({position:'topright', expanded:'True'}).addTo(map);
+            var searchControl = L.esri.Geocoding.Controls.geosearch({position:'topright', expanded:'True', maxresults:2}).addTo(map);
 
             var results = L.layerGroup().addTo(map);
 
