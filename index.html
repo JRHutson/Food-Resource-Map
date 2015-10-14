@@ -268,8 +268,9 @@
                     }
                 }
             }).addTo(map);
-
-
+            
+            
+            
             //Popup Configuration
 
             foodbanks.bindPopup(function (feature) {
@@ -322,6 +323,12 @@
 
             //Marker symbol was adapted from a public domain icon by the Noun Project. (https://thenounproject.com/search/?q=Food+Bank&i=744)
             
+            //Setting Map Extent based on specific coordinates for ideal display on all screens
+            
+            map.fitBounds([
+      [33.604617, -117.655995],
+      [34.696757, -118.923299]
+    ]);
         });
 
 
