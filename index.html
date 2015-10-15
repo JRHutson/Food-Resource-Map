@@ -181,7 +181,8 @@
             // Geocoder
             var searchControl = L.esri.Geocoding.Controls.geosearch({
                 position: 'topright',
-                expanded: 'True'
+                expanded: 'True',
+                useMapBounds: 'True'
             }).addTo(map);
 
             var results = L.layerGroup().addTo(map);
