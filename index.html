@@ -181,7 +181,8 @@
             // Geocoder
             var searchControl = L.esri.Geocoding.Controls.geosearch({
                 position: 'topright',
-                expanded: 'True'
+                expanded: true,
+                useMapBounds: true
             }).addTo(map);
 
             var results = L.layerGroup().addTo(map);
@@ -327,7 +328,7 @@
             
             map.fitBounds([
       [33.604617, -117.655995],
-      [34.696757, -118.923299]
+      [35.104580, -118.945244]
     ]);
         });
 
