@@ -340,9 +340,8 @@
       [35.104580, -118.945244]
     ]);
             
-            var win =  L.control.window(map,{title:'Welcome to the LA Regional Food Bank Resource Locator',maxWidth:400,modal: true})
-                .content('Zoom in to your neighborhood by clicking or tapping the nearest icon. As you zoom in the clusters will break up and individual resources will be displayed. You can search for an address with the field at the top right. The pin icon to the left will take the map to your current location. Individual agencies are color coded. Green icons indicate they are scheduled to distribute on the current or following day. Grey icons designate potential resources for future days.')
-                .prompt({callback:function(){alert('This is called after OK click!')}})
+            var win =  L.control.window(map,{title:'Welcome to the Los Angeles Food Bank Resource Locator',maxWidth:400,modal: true})
+                .content('<p>Zoom in to your neighborhood by clicking or tapping the nearest numbered icon. As you zoom in the clusters will break up and individual resources will be displayed. You can search for an address with the field at the top right. The pin icon to the left will take the map to your current location.</p> Individual agencies are color coded. Green icons indicate they are scheduled to distribute on the current or following day. Grey icons designate potential resources for future days.')
                 .show()
     });
         
