@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="http://rawgithub.com/domoritz/leaflet-locatecontrol/gh-pages/dist/L.Control.Locate.min.css" />
     <script src="http://rawgithub.com/domoritz/leaflet-locatecontrol/gh-pages/dist/L.Control.Locate.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <script src="https://github.com/JRHutson/Food-Resource-Map/blob/master/src/L.Control.Window.js"></script>
+    <link rel="stylesheet" href="https://github.com/JRHutson/Food-Resource-Map/blob/master/src/L.Control.Window.css" />
+
 
     <!-- Load Clustered Feature Layer from CDN -->
     <script src="https://cdn.jsdelivr.net/leaflet.esri.clustered-feature-layer/1.0.2/esri-leaflet-clustered-feature-layer.js"></script>
@@ -330,6 +333,16 @@
       [33.604617, -117.655995],
       [35.104580, -118.945244]
     ]);
+            
+            //Opening Intro
+            
+            map.on('open',function(){
+
+        var win =  L.control.window(map,{title:'Hello world!',maxWidth:400,modal: true})
+                .content('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ac sollicitudin eros, ut imperdiet felis. Pellentesque pretium mi ante, et faucibus ipsum rutrum sed. Proin accumsan luctus consectetur. In sit amet purus id dui scelerisque ultricies non porta dui. Cras sit amet arcu non est efficitur molestie.')
+                .prompt({callback:function(){alert('This is called after OK click!')}})
+                .show()
+    });
         });
 
 
