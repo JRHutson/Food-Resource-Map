@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="http://rawgithub.com/domoritz/leaflet-locatecontrol/gh-pages/dist/L.Control.Locate.min.css" />
     <script src="http://rawgithub.com/domoritz/leaflet-locatecontrol/gh-pages/dist/L.Control.Locate.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <script src="src/L.Control.Window.js"></script>
+    <link rel="stylesheet" href="src/L.Control.Window.css" />
+
 
     <!-- Load Clustered Feature Layer from CDN -->
     <script src="https://cdn.jsdelivr.net/leaflet.esri.clustered-feature-layer/1.0.2/esri-leaflet-clustered-feature-layer.js"></script>
@@ -167,10 +170,9 @@
 
 
         var map;
-
         $(document).ready(function () {
-
             map = L.map('map').setView([34.07, -118.23], 8);
+
 
             //Basemap and Labels
 
@@ -212,6 +214,7 @@
                 iconAnchor: [25, 50],
                 popupAnchor: [0, -50],
             });
+
 
             //Marker symbol was adapted from a public domain icon by the Noun Project. (https://thenounproject.com/search/?q=Food+Bank&i=744)
             //Food Banks
@@ -269,14 +272,15 @@
                     }
                 }
             }).addTo(map);
-            
-            
-            
+
+
             //Popup Configuration
 
             foodbanks.bindPopup(function (feature) {
                 return L.Util.template('<p>{AgencyName}<br>{AgencyAddr}<br>{AgencyCity}, {AgencyStat} {AgencyZip}<br><a href="tel:{AgencyPhon}">{AgencyPhon}</a><br>Distribution Schedule: <br>{Schedule} </p> <a href="http://maps.apple.com/?daddr={FullAddre}&dirflg=d&t=h">Get Directions</a>', feature.properties);
             });
+
+
 
             //County Outline
 
@@ -292,6 +296,7 @@
                     }
                 }
             }).addTo(map);
+
 
             //Locate Me Control
 
@@ -309,7 +314,7 @@
             }));
 
             // Centering Map on Pop-up Open
-            
+
             map.on('popupopen', function (e) {
                 var px = map.project(e.popup._latlng); // find the pixel location on the map where the popup anchor is
                 px.y -= e.popup._container.clientHeight / 2 // find the height of the popup container, divide by 2, subtract from the Y axis of marker location
@@ -317,20 +322,30 @@
                     animate: true
                 }); // pan to new center
             });
-            
+
+
             //Attribution of icon
-            
+
             map.attributionControl.addAttribution('Noun Project')
 
             //Marker symbol was adapted from a public domain icon by the Noun Project. (https://thenounproject.com/search/?q=Food+Bank&i=744)
-            
+
             //Setting Map Extent based on specific coordinates for ideal display on all screens
-            
+
             map.fitBounds([
       [33.604617, -117.655995],
       [35.104580, -118.945244]
     ]);
+
+            var win = L.control.window(map, {
+                    title: '<center>Welcome to the Los Angeles Regional Food Bank Resource Locator</center>',
+                    maxWidth: 400,
+                    modal: true
+                })
+                .content('<p>Zoom in to your neighborhood by clicking or tapping the nearest numbered icon. As you zoom in the clusters will break up and individual resources will be displayed. You can search for an address with the field at the top right. The pin icon to the left will take the map to your current location.</p>Individual agencies are color coded. Green icons indicate they are scheduled to distribute on the current or following day. Grey icons designate potential resources for future days. Get detailed info on the agency location and schedule by clicking or tapping on its marker')
+                .show()
         });
+
 
 
         //Comment added for GitHub app test
