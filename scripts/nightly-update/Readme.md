@@ -14,8 +14,8 @@ npm start
 
 ### To do
 - [x] update feature service with yes/no information for tomorrow's distributions
+- [x] use local time (instead of GMT)
 - [ ] add more logic to transfer detailed hourly information for today
-- [ ] use local time (instead of GMT)
 - [ ] write a method to reset *all* feature attributes
 - [ ] schedule the script to run at 12:01am each day
 
