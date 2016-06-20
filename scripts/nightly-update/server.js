@@ -20,9 +20,9 @@ var params = {
 };
 
 var pantries = new client.featureservice(params, function (err, res) {
-    if (!err) {
-      // do something
-    }
+  if (!err) {
+    // initial request to fetch metadata
+  }
 });
 
 var templateRecord = {
@@ -40,11 +40,11 @@ ex:
 http://services.arcgis.com/uCXeTVveQzP4IIcx/arcgis/rest/services/LAFoodPantries/FeatureServer/0/query?where=Agency_No_ IN (1,2,3)&outFields=*&returnIdsOnly=true&f=pjson
 */
 var query_params = {
-        f: 'json',
-        returnGeometry: true,
-        where: 'placeholder',
-        returnIdsOnly: true,
-      };
+  f: 'json',
+  returnGeometry: true,
+  where: 'placeholder',
+  returnIdsOnly: true,
+};
 
 var pantriesOpenTomorrow = [];
 
@@ -52,10 +52,10 @@ var pantriesOpenTomorrow = [];
 var tomorrowSqlFilter = 'Agency_No_ IN (';
 
 var parser = parse({delimiter: ','}, function(err, data){
-	if(data){
+  if(data){
     // resetFeatureService();
     postForTomorrow(data);
-	}
+  }
 });
 
 // this function writes 'YES' in the Tomorrow field of the service if a record is found in the CSV for an agency with a matching day name
