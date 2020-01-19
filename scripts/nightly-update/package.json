@@ -1,0 +1,17 @@
+{
+  "name": "la-food-banks-nightly-update",
+  "version": "1.0.0",
+  "description": "a script to update an AGOL feature service nightly from a .csv",
+  "main": "index.js",
+  "private": true,
+  "dependencies": {
+    "csv-parse": "^4.8.5",
+    "geoservices": "^1.1.0"
+  },
+  "devDependencies": {},
+  "author": "John Gravois <jgravois@esri.com> (http://johngravois.com)",
+  "license": "Apache-2.0",
+  "readmeFilename": "README.md",
+  "scripts": {
+  }
+}
